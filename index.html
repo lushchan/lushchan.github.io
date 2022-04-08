@@ -1,6 +1,124 @@
-<br>Linux cheat sheet</br>
+<h1 dir="auto">Linux Snipets</h1>
+<h3 dir="auto"><a id="user-content-push-with-specific-key" class="anchor" href="https://github.com/lushchan/cbook#push-with-specific-key" aria-hidden="true"></a>Push with specific key</h3>
+<p dir="auto"><code>ssh-agent bash -c 'ssh-add /home/support/lmr/.ssh/id_rsa; git push origin master'</code></p>
+<h1 dir="auto"><a id="user-content-logs" class="anchor" href="https://github.com/lushchan/cbook#logs" aria-hidden="true"></a>Logs</h1>
+<h3 dir="auto"><a id="user-content-max-requests-per-ip" class="anchor" href="https://github.com/lushchan/cbook#max-requests-per-ip" aria-hidden="true"></a>Max requests per IP</h3>
+<p dir="auto"><code>cat /var/log/nginx/access.log|cut -f 1 -d ' '|sort|uniq -c|sort -nr|less</code></p>
+<h1 dir="auto"><a id="user-content-mysql" class="anchor" href="https://github.com/lushchan/cbook#mysql" aria-hidden="true"></a>MySQL</h1>
+<h3 dir="auto"><a id="user-content-add-grants" class="anchor" href="https://github.com/lushchan/cbook#add-grants" aria-hidden="true"></a>ADD GRANTS</h3>
+<p dir="auto"><code>GRANT ALL PRIVILEGES ON database.* TO user@`localhost` IDENTIFIED BY 'password';</code></p>
+<h3 dir="auto"><a id="user-content-make-dump-dbname-to-dbnamesql" class="anchor" href="https://github.com/lushchan/cbook#make-dump-dbname-to-dbnamesql" aria-hidden="true"></a>MAKE DUMP dbname to dbname.sql</h3>
+<p dir="auto"><code>mysqldump --routines --events --lock-tables dbname &gt; dbname.sql</code>&nbsp;<code>mysqldump --routines --events --single-transaction dbname &gt; dbname.sql</code></p>
+<h1 dir="auto"><a id="user-content-files" class="anchor" href="https://github.com/lushchan/cbook#files" aria-hidden="true"></a>Files</h1>
+<h3 dir="auto"><a id="user-content-find-and-unlink" class="anchor" href="https://github.com/lushchan/cbook#find-and-unlink" aria-hidden="true"></a>find and unlink</h3>
+<p dir="auto"><code>find . -type l -exec unlink {} \;</code></p>
+<h3 dir="auto"><a id="user-content-setfacl-usage" class="anchor" href="https://github.com/lushchan/cbook#setfacl-usage" aria-hidden="true"></a>setfacl usage</h3>
+<p dir="auto"><code>find ./ -type d -exec setfacl -m u:apache:rwx {} \;</code></p>
+<p dir="auto"><code>find ./ -type f -exec setfacl -m u:apache:rw {} \;</code></p>
+<h1 dir="auto"><a id="user-content-snipets" class="anchor" href="https://github.com/lushchan/cbook#snipets" aria-hidden="true"></a>SNIPETS</h1>
+<h2 dir="auto"><a id="user-content-check-private-and-pub-keys" class="anchor" href="https://github.com/lushchan/cbook#check-private-and-pub-keys" aria-hidden="true"></a>check private and pub keys</h2>
+<div class="snippet-clipboard-content position-relative overflow-auto">
+<pre><code>openssl x509 -noout -modulus -in ../pub.crt | openssl md5 #pub
 
-<br>Pass in one line specific key to git\n</br>
+openssl rsa -noout -modulus -in ../private.key | openssl md5 #private
+</code></pre>
+</div>
+<h2 dir="auto"><a id="user-content-nginx-acme-locationavoid-anoying-redirects" class="anchor" href="https://github.com/lushchan/cbook#nginx-acme-locationavoid-anoying-redirects" aria-hidden="true"></a>nginx acme location(avoid anoying redirects)</h2>
+<div class="snippet-clipboard-content position-relative overflow-auto">
+<pre><code>location /.well-known/acme-challenge/ {
+        root /home/user/domain.com/www;
+        
 
-<br>ssh-agent bash -c 'ssh-add /home/linuxuser/.ssh/id_rsa; git push origin master'</br>
+default_type "text/plain";
+        try_files $uri =404;
+                break;
 
+    }
+</code></pre>
+</div>
+<h2 dir="auto"><a id="user-content-nginx-limits-per-ip" class="anchor" href="https://github.com/lushchan/cbook#nginx-limits-per-ip" aria-hidden="true"></a>nginx limits per ip</h2>
+<div class="highlight highlight-source-nginx position-relative overflow-auto">
+<pre>...
+<span class="pl-k">geo</span> <span class="pl-smi">$limit</span> {
+<span class="pl-c1"> default</span> <span class="pl-s">1</span>;
+192.168.1.<span class="pl-k">1</span> 0;
+192.168.1.<span class="pl-k">2</span> 0;
+192.168.1.<span class="pl-k">3</span> 0;
+}
+}
+
+<span class="pl-k">map</span> <span class="pl-smi">$limit</span> <span class="pl-smi">$limit_ips</span> {
+ <span class="pl-s">0</span> <span class="pl-s">''</span>;
+ <span class="pl-s">1</span> <span class="pl-smi">$binary_remote_addr</span>;
+}
+
+<span class="pl-k">server</span> {
+...
+<span class="pl-k">limit_req_zone</span> <span class="pl-smi">$limit_ips</span> zone=peraddr:10m rate=100r/m;
+...
+}</pre>
+</div>
+<h2 dir="auto"><a id="user-content-limit-to-uri-from-ip" class="anchor" href="https://github.com/lushchan/cbook#limit-to-uri-from-ip" aria-hidden="true"></a>Limit to uri from ip</h2>
+<div class="highlight highlight-source-nginx position-relative overflow-auto">
+<pre>..
+<span class="pl-k">geo</span> <span class="pl-smi">$ip_allow</span> {
+192.168.1.1 <span class="pl-s">1</span>;
+192.168.1.<span class="pl-k">2</span> 1;
+<span class="pl-k">default</span> 0;
+}
+...
+}
+
+<span class="pl-k">server</span> {
+...
+   <span class="pl-k">set</span> <span class="pl-smi">$check</span> <span class="pl-s">''</span>;
+  
+   <span class="pl-k">if</span> ( <span class="pl-smi">$ip_allow</span> = <span class="pl-s">0</span>  ) {
+      <span class="pl-k">set</span> <span class="pl-smi">$check</span> <span class="pl-s">"A"</span>;
+   }
+
+    <span class="pl-k">if</span> ( <span class="pl-smi">$request_uri</span> <span class="pl-sr">~*</span> ((asm_admin<span class="pl-sr">\.php.*|wp-login\.php.*|xmlrpc\.php.*|admin\/login\/.*|wp-json.*)$)) </span>{
+      set <span class="pl-smi">$check</span> <span class="pl-s">"${check}B"</span>;
+   }
+
+   if ( <span class="pl-smi">$check</span> = <span class="pl-s">"AB"</span> ) {
+      <span class="pl-c1">return</span> <span class="pl-s">403</span>;
+      }
+...
+}</pre>
+</div>
+<h2 dir="auto"><a id="user-content-httpd-prefork" class="anchor" href="https://github.com/lushchan/cbook#httpd-prefork" aria-hidden="true"></a>httpd prefork</h2>
+<div class="snippet-clipboard-content position-relative overflow-auto">
+<pre><code>&lt;IfModule prefork.c&gt;
+ServerLimit (Full RAM in MB - RAM consumption by other services like MySQL) / RAM consumption by 1 httpd process $(ps aux | grep 'httpd' | awk '{print $6/1024;}')
+StartServers 30% of MaxClients
+MinSpareServers 5% MaxClients
+MaxSpareServers 10% MaxClients
+MaxClients (Full RAM in MB - RAM consumption by other services like MySQL) / RAM consumption by 1 httpd process $(ps aux | grep 'httpd' | awk '{print $6/1024;}')
+MaxRequestsPerChild 10000
+&lt;/IfModule&gt;
+</code></pre>
+</div>
+<h2 dir="auto"><a id="user-content-pmmaxchildren-php-fpm" class="anchor" href="https://github.com/lushchan/cbook#pmmaxchildren-php-fpm" aria-hidden="true"></a>pm.max.children php-fpm</h2>
+<div class="snippet-clipboard-content position-relative overflow-auto">
+<pre><code>Далее, возьмем за основу формулу для расчета pm.max_children (источник), и проведем расчет на примере:
+
+Total Max Processes = (Total Ram - (Used Ram + Buffer)) / (Memory per php process)
+
+Всего ОЗУ: 4Гб
+Используется ОЗУ: 1000Мб
+Буфер безопасности: 400Мб
+Память на один дочерний php-fpm процесс (в среднем): 30Мб
+
+Максимально возможное кол-во процессов = (4096 - (1000 + 400)) / 30 = 89
+Четное количество: 89 округлили в меньшую сторону до 80
+</code></pre>
+</div>
+<h3 dir="auto"><a id="user-content-crontab-for-all-users" class="anchor" href="https://github.com/lushchan/cbook#crontab-for-all-users" aria-hidden="true"></a>crontab for all users</h3>
+<p dir="auto"><code>for user in $(cut -d':' -f1 /etc/passwd); do crontab -u $user -l; done</code></p>
+<h3 dir="auto"><a id="user-content-push-file-fixsh-to-host-1921681199-port-60000" class="anchor" href="https://github.com/lushchan/cbook#push-file-fixsh-to-host-1921681199-port-60000" aria-hidden="true"></a>push file fix.sh to host 192.168.1.199 port 60000</h3>
+<p dir="auto"><code>cat file.sh | nc -l 60000 &lt; file.sh&nbsp;</code>#on source</p>
+<p dir="auto"><code>nc 192.168.1.199 60000 | cat &gt; file.sh&nbsp;</code>#on target</p>
+<p dir="auto"><strong>useful tricks</strong></p>
+<p dir="auto"><code>mysqldump --master-data=2 --flush-logs --quick --single-transaction --routines database | gzip -c | nc -l 60000 &lt; database.sql</code></p>
+<p dir="auto"><code>nc 192.168.1.199 60000 | gunzip | mysql database &lt; database.sql</code></p>
