@@ -4,9 +4,9 @@
 <h1 dir="auto"><a id="user-content-logs" class="anchor" href="https://github.com/lushchan/cbook#logs" aria-hidden="true"></a>Logs</h1>
 <h3 dir="auto"><a id="user-content-max-requests-per-ip" class="anchor" href="https://github.com/lushchan/cbook#max-requests-per-ip" aria-hidden="true"></a>Max requests per IP</h3>
 <p dir="auto"><code>cat /var/log/nginx/access.log|cut -f 1 -d ' '|sort|uniq -c|sort -nr|less</code></p>
-<h3 dir="auto"><a id="awk-in-range" class="anchor" href="https://github.com/lushchan/cbook#awk-in-range" aria-hidden="true"></a>awk in range</h3>
-<p dir="auto"><code>awk '{for(i=13;i<=NF-2;i++) printf $i" "; print ""}' | sort -u | wc -l</code></p>
-
+<h1 dir="auto">Shell</h1>
+<h3 dir="auto">awk in range</h3>
+<p><code>awk '{for(i=13;i&lt;=NF-2;i++) printf $i" "; print ""}'</code></p>
 <h1 dir="auto"><a id="user-content-mysql" class="anchor" href="https://github.com/lushchan/cbook#mysql" aria-hidden="true"></a>MySQL</h1>
 <h3 dir="auto"><a id="user-content-add-grants" class="anchor" href="https://github.com/lushchan/cbook#add-grants" aria-hidden="true"></a>ADD GRANTS</h3>
 <p dir="auto"><code>GRANT ALL PRIVILEGES ON database.* TO user@`localhost` IDENTIFIED BY 'password';</code></p>
