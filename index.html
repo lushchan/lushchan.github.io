@@ -127,7 +127,10 @@ Total Max Processes = (Total Ram - (Used Ram + Buffer)) / (Memory per php proces
 <p dir="auto"><code>nc 192.168.1.199 60000 | gunzip | mysql database &lt; database.sql</code></p>
 <h3 dir="auto"><a id="htpasswd-skip" class="anchor" href="https://github.com/lushchan/cbook#htpasswd-skip" aria-hidden="true"></a>htpasswd skip</h3>
 <pre><code>Order deny,allow
+        
 Deny from all
+        
 Allow from 185.73.220.180
+        
 Satisfy any
 </code></pre>
