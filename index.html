@@ -133,14 +133,17 @@ Satisfy any
 </code></pre>
 
 <h3 dir="auto"><a id="wp-redirect-fix" class="anchor" href="https://github.com/lushchan/lushchan.github.io#wp-redirect-fix" aria-hidden="true"></a>WordPress infinite redirect fix</h3>
-<pre><code>if($_SERVER['PHP_SELF']=="/index.php")
-{
-define('WP_HOME','https://yourdomain.com');
-define('WP_SITEURL','https://yourdomain.com');
-}
-else
-{
-define('WP_HOME','http://yourdomain.com');
-define('WP_SITEURL','http://yourdomain.com');
-}
+<pre><code>
+### Add to wp-config.php
+/** SSL */
+define('FORCE_SSL_ADMIN', true);
+// in some setups HTTP_X_FORWARDED_PROTO might contain  
+// a comma-separated list e.g. http,https  
+// so check for https existence  
+if (strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false)
+    $_SERVER['HTTPS']='on';
+
+### Add to nginx 
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $remote_addr;
 </code></pre>
