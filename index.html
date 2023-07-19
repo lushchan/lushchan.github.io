@@ -1,32 +1,32 @@
 <h1 dir="auto">Linux Snipets</h1>
-<h3 dir="auto"><a id="user-content-push-with-specific-key" class="anchor" href="https://github.com/lushchan/cbook#push-with-specific-key" aria-hidden="true"></a>Push with specific key</h3>
+<h3 dir="auto"><a id="user-content-push-with-specific-key" class="anchor" href="https://github.com/lushchan/lushchan.github.io#push-with-specific-key" aria-hidden="true"></a>Push with specific key</h3>
 <p dir="auto"><code>ssh-agent bash -c 'ssh-add /home/support/lmr/.ssh/id_rsa; git push origin master'</code></p>
-<h1 dir="auto"><a id="user-content-logs" class="anchor" href="https://github.com/lushchan/cbook#logs" aria-hidden="true"></a>Logs</h1>
-<h3 dir="auto"><a id="user-content-max-requests-per-ip" class="anchor" href="https://github.com/lushchan/cbook#max-requests-per-ip" aria-hidden="true"></a>Max requests per IP</h3>
+<h1 dir="auto"><a id="user-content-logs" class="anchor" href="https://github.com/lushchan/lushchan.github.io#logs" aria-hidden="true"></a>Logs</h1>
+<h3 dir="auto"><a id="user-content-max-requests-per-ip" class="anchor" href="https://github.com/lushchan/lushchan.github.io#max-requests-per-ip" aria-hidden="true"></a>Max requests per IP</h3>
 <p dir="auto"><code>cat /var/log/nginx/access.log|cut -f 1 -d ' '|sort|uniq -c|sort -nr|less</code></p>
 <h1 dir="auto">Shell</h1>
 <h3 dir="auto">awk in range</h3>
 <p><code>awk '{for(i=13;i&lt;=NF-2;i++) printf $i" "; print ""}'</code></p>
-<h1 dir="auto"><a id="user-content-mysql" class="anchor" href="https://github.com/lushchan/cbook#mysql" aria-hidden="true"></a>MySQL</h1>
-<h3 dir="auto"><a id="user-content-add-grants" class="anchor" href="https://github.com/lushchan/cbook#add-grants" aria-hidden="true"></a>ADD GRANTS</h3>
+<h1 dir="auto"><a id="user-content-mysql" class="anchor" href="https://github.com/lushchan/lushchan.github.io#mysql" aria-hidden="true"></a>MySQL</h1>
+<h3 dir="auto"><a id="user-content-add-grants" class="anchor" href="https://github.com/lushchan/lushchan.github.io#add-grants" aria-hidden="true"></a>ADD GRANTS</h3>
 <p dir="auto"><code>GRANT ALL PRIVILEGES ON database.* TO user@`localhost` IDENTIFIED BY 'password';</code></p>
-<h3 dir="auto"><a id="user-content-make-dump-dbname-to-dbnamesql" class="anchor" href="https://github.com/lushchan/cbook#make-dump-dbname-to-dbnamesql" aria-hidden="true"></a>MAKE DUMP dbname to dbname.sql</h3>
+<h3 dir="auto"><a id="user-content-make-dump-dbname-to-dbnamesql" class="anchor" href="https://github.com/lushchan/lushchan.github.io#make-dump-dbname-to-dbnamesql" aria-hidden="true"></a>MAKE DUMP dbname to dbname.sql</h3>
 <p dir="auto"><code>mysqldump --routines --events --lock-tables dbname &gt; dbname.sql</code>&nbsp;<code>mysqldump --routines --events --single-transaction dbname &gt; dbname.sql</code></p>
-<h1 dir="auto"><a id="user-content-files" class="anchor" href="https://github.com/lushchan/cbook#files" aria-hidden="true"></a>Files</h1>
-<h3 dir="auto"><a id="user-content-find-and-unlink" class="anchor" href="https://github.com/lushchan/cbook#find-and-unlink" aria-hidden="true"></a>find and unlink</h3>
+<h1 dir="auto"><a id="user-content-files" class="anchor" href="https://github.com/lushchan/lushchan.github.io#files" aria-hidden="true"></a>Files</h1>
+<h3 dir="auto"><a id="user-content-find-and-unlink" class="anchor" href="https://github.com/lushchan/lushchan.github.io#find-and-unlink" aria-hidden="true"></a>find and unlink</h3>
 <p dir="auto"><code>find . -type l -exec unlink {} \;</code></p>
-<h3 dir="auto"><a id="user-content-setfacl-usage" class="anchor" href="https://github.com/lushchan/cbook#setfacl-usage" aria-hidden="true"></a>setfacl usage</h3>
+<h3 dir="auto"><a id="user-content-setfacl-usage" class="anchor" href="https://github.com/lushchan/lushchan.github.io#setfacl-usage" aria-hidden="true"></a>setfacl usage</h3>
 <p dir="auto"><code>find ./ -type d -exec setfacl -m u:apache:rwx {} \;</code></p>
 <p dir="auto"><code>find ./ -type f -exec setfacl -m u:apache:rw {} \;</code></p>
-<h1 dir="auto"><a id="user-content-snipets" class="anchor" href="https://github.com/lushchan/cbook#snipets" aria-hidden="true"></a>SNIPETS</h1>
-<h2 dir="auto"><a id="user-content-check-private-and-pub-keys" class="anchor" href="https://github.com/lushchan/cbook#check-private-and-pub-keys" aria-hidden="true"></a>check private and pub keys</h2>
+<h1 dir="auto"><a id="user-content-snipets" class="anchor" href="https://github.com/lushchan/lushchan.github.io#snipets" aria-hidden="true"></a>SNIPETS</h1>
+<h2 dir="auto"><a id="user-content-check-private-and-pub-keys" class="anchor" href="https://github.com/lushchan/lushchan.github.io#check-private-and-pub-keys" aria-hidden="true"></a>check private and pub keys</h2>
 <div class="snippet-clipboard-content position-relative overflow-auto">
 <pre><code>openssl x509 -noout -modulus -in ../pub.crt | openssl md5 #pub
 
 openssl rsa -noout -modulus -in ../private.key | openssl md5 #private
 </code></pre>
 </div>
-<h2 dir="auto"><a id="user-content-nginx-acme-locationavoid-anoying-redirects" class="anchor" href="https://github.com/lushchan/cbook#nginx-acme-locationavoid-anoying-redirects" aria-hidden="true"></a>nginx acme location(avoid anoying redirects)</h2>
+<h2 dir="auto"><a id="user-content-nginx-acme-locationavoid-anoying-redirects" class="anchor" href="https://github.com/lushchan/lushchan.github.io#nginx-acme-locationavoid-anoying-redirects" aria-hidden="true"></a>nginx acme location(avoid anoying redirects)</h2>
 <div class="snippet-clipboard-content position-relative overflow-auto">
 <pre><code>location /.well-known/acme-challenge/ {
         root /home/user/domain.com/www;
@@ -39,7 +39,7 @@ default_type "text/plain";
     }
 </code></pre>
 </div>
-<h2 dir="auto"><a id="user-content-nginx-limits-per-ip" class="anchor" href="https://github.com/lushchan/cbook#nginx-limits-per-ip" aria-hidden="true"></a>nginx limits per ip</h2>
+<h2 dir="auto"><a id="user-content-nginx-limits-per-ip" class="anchor" href="https://github.com/lushchan/lushchan.github.io#nginx-limits-per-ip" aria-hidden="true"></a>nginx limits per ip</h2>
 <div class="highlight highlight-source-nginx position-relative overflow-auto">
 <pre>...
 <span class="pl-k">geo</span> <span class="pl-smi">$limit</span> {
@@ -61,7 +61,7 @@ default_type "text/plain";
 ...
 }</pre>
 </div>
-<h2 dir="auto"><a id="user-content-limit-to-uri-from-ip" class="anchor" href="https://github.com/lushchan/cbook#limit-to-uri-from-ip" aria-hidden="true"></a>Limit to uri from ip</h2>
+<h2 dir="auto"><a id="user-content-limit-to-uri-from-ip" class="anchor" href="https://github.com/lushchan/lushchan.github.io#limit-to-uri-from-ip" aria-hidden="true"></a>Limit to uri from ip</h2>
 <div class="highlight highlight-source-nginx position-relative overflow-auto">
 <pre>..
 <span class="pl-k">geo</span> <span class="pl-smi">$ip_allow</span> {
@@ -90,7 +90,7 @@ default_type "text/plain";
 ...
 }</pre>
 </div>
-<h2 dir="auto"><a id="user-content-httpd-prefork" class="anchor" href="https://github.com/lushchan/cbook#httpd-prefork" aria-hidden="true"></a>httpd prefork</h2>
+<h2 dir="auto"><a id="user-content-httpd-prefork" class="anchor" href="https://github.com/lushchan/lushchan.github.io#httpd-prefork" aria-hidden="true"></a>httpd prefork</h2>
 <div class="snippet-clipboard-content position-relative overflow-auto">
 <pre><code>&lt;IfModule prefork.c&gt;
 ServerLimit (Full RAM in MB - RAM consumption by other services like MySQL) / RAM consumption by 1 httpd process $(ps aux | grep 'httpd' | awk '{print $6/1024;}')
@@ -102,7 +102,7 @@ MaxRequestsPerChild 10000
 &lt;/IfModule&gt;
 </code></pre>
 </div>
-<h2 dir="auto"><a id="user-content-pmmaxchildren-php-fpm" class="anchor" href="https://github.com/lushchan/cbook#pmmaxchildren-php-fpm" aria-hidden="true"></a>pm.max.children php-fpm</h2>
+<h2 dir="auto"><a id="user-content-pmmaxchildren-php-fpm" class="anchor" href="https://github.com/lushchan/lushchan.github.io#pmmaxchildren-php-fpm" aria-hidden="true"></a>pm.max.children php-fpm</h2>
 <div class="snippet-clipboard-content position-relative overflow-auto">
 <pre><code>Далее, возьмем за основу формулу для расчета pm.max_children (источник), и проведем расчет на примере:
 
@@ -117,17 +117,30 @@ Total Max Processes = (Total Ram - (Used Ram + Buffer)) / (Memory per php proces
 Четное количество: 89 округлили в меньшую сторону до 80
 </code></pre>
 </div>
-<h3 dir="auto"><a id="user-content-crontab-for-all-users" class="anchor" href="https://github.com/lushchan/cbook#crontab-for-all-users" aria-hidden="true"></a>crontab for all users</h3>
+<h3 dir="auto"><a id="user-content-crontab-for-all-users" class="anchor" href="https://github.com/lushchan/lushchan.github.io#crontab-for-all-users" aria-hidden="true"></a>crontab for all users</h3>
 <p dir="auto"><code>for user in $(cut -d':' -f1 /etc/passwd); do crontab -u $user -l; done</code></p>
-<h3 dir="auto"><a id="user-content-push-file-fixsh-to-host-1921681199-port-60000" class="anchor" href="https://github.com/lushchan/cbook#push-file-fixsh-to-host-1921681199-port-60000" aria-hidden="true"></a>push file fix.sh to host 192.168.1.199 port 60000</h3>
+<h3 dir="auto"><a id="user-content-push-file-fixsh-to-host-1921681199-port-60000" class="anchor" href="https://github.com/lushchan/lushchan.github.io#push-file-fixsh-to-host-1921681199-port-60000" aria-hidden="true"></a>push file fix.sh to host 192.168.1.199 port 60000</h3>
 <p dir="auto"><code>cat file.sh | nc -l 60000 &lt; file.sh&nbsp;</code>#on source</p>
 <p dir="auto"><code>nc 192.168.1.199 60000 | cat &gt; file.sh&nbsp;</code>#on target</p>
 <p dir="auto"><strong>useful tricks</strong></p>
 <p dir="auto"><code>mysqldump --master-data=2 --flush-logs --quick --single-transaction --routines database | gzip -c | nc -l 60000 &lt; database.sql</code></p>
 <p dir="auto"><code>nc 192.168.1.199 60000 | gunzip | mysql database &lt; database.sql</code></p>
-<h3 dir="auto"><a id="htpasswd-skip" class="anchor" href="https://github.com/lushchan/cbook#htpasswd-skip" aria-hidden="true"></a>htpasswd skip</h3>
+<h3 dir="auto"><a id="htpasswd-skip" class="anchor" href="https://github.com/lushchan/lushchan.github.io#htpasswd-skip" aria-hidden="true"></a>htpasswd skip</h3>
 <pre><code>Order deny,allow
 Deny from all
 Allow from 185.73.220.180
 Satisfy any
+</code></pre>
+
+<h3 dir="auto"><a id="wp-redirect-fix" class="anchor" href="https://github.com/lushchan/lushchan.github.io#wp-redirect-fix" aria-hidden="true"></a>WordPress infinite redirect fix</h3>
+<pre><code>if($_SERVER['PHP_SELF']=="/index.php")
+{
+define('WP_HOME','https://yourdomain.com');
+define('WP_SITEURL','https://yourdomain.com');
+}
+else
+{
+define('WP_HOME','http://yourdomain.com');
+define('WP_SITEURL','http://yourdomain.com');
+}
 </code></pre>
