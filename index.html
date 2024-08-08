@@ -117,6 +117,13 @@ Total Max Processes = (Total Ram - (Used Ram + Buffer)) / (Memory per php proces
 Четное количество: 89 округлили в меньшую сторону до 80
 </code></pre>
 </div>
+
+<h3 dir="auto">squash commits</h3>
+<pre><code>git switch yourBranch
+git reset --soft $(git merge-base master HEAD)
+git commit -m "one commit on yourBranch"
+</code></pre>
+
 <h3 dir="auto"><a id="user-content-crontab-for-all-users" class="anchor" href="https://github.com/lushchan/lushchan.github.io#crontab-for-all-users" aria-hidden="true"></a>crontab for all users</h3>
 <p dir="auto"><code>for user in $(cut -d':' -f1 /etc/passwd); do crontab -u $user -l; done</code></p>
 <h3 dir="auto"><a id="user-content-push-file-fixsh-to-host-1921681199-port-60000" class="anchor" href="https://github.com/lushchan/lushchan.github.io#push-file-fixsh-to-host-1921681199-port-60000" aria-hidden="true"></a>push file fix.sh to host 192.168.1.199 port 60000</h3>
